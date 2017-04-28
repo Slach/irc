@@ -882,7 +882,8 @@ class ServerConnection(Connection):
         bytes = string.encode('utf-8') + b'\r\n'
         # According to the RFC http://tools.ietf.org/html/rfc2812#page-6,
         # clients should not transmit more than 512 bytes.
-        if len(bytes) > 512:
+        # sorry guys i need this ugly hack
+        if len(bytes) > 4096:
             msg = "Messages limited to 512 bytes including CR/LF"
             raise MessageTooLong(msg)
         return bytes
